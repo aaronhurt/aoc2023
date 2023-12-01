@@ -57,7 +57,7 @@ func part1() {
 	for _, line := range readLines() {
 		var length = len(line)
 
-		// get first digit from the start (10s place)
+		// get first digit from the left (10s place)
 		for i := 0; i < length; i++ {
 			if ok, digit := isDigit(line, i, digitMap); ok {
 				total += digit * 10
@@ -65,7 +65,7 @@ func part1() {
 			}
 		}
 
-		// get first digit from the end (ones place)
+		// get first digit from the right (ones place)
 		for i := length - 1; i >= 0; i-- {
 			if ok, digit := isDigit(line, i, digitMap); ok {
 				total += digit
@@ -85,7 +85,7 @@ func part2() {
 	for _, line := range readLines() {
 		var length = len(line)
 
-		// get first digit from the start (10s place)
+		// get first digit from the left (10s place)
 		for i := 0; i < length; i++ {
 			if ok, digit := isDigit(line, i, fullMap); ok {
 				total += digit * 10
@@ -93,7 +93,7 @@ func part2() {
 			}
 		}
 
-		// get first digit from the end (ones place)
+		// get first digit from the right (ones place)
 		for i := length - 1; i >= 0; i-- {
 			if ok, digit := isDigit(line, i, fullMap); ok {
 				total += digit
