@@ -53,7 +53,7 @@ func part1() {
 	fmt.Printf("P1 Total: %d\n", total)
 }
 
-var numWords = map[string]int{
+var digitWords = map[string]int{
 	"one":   1,
 	"two":   2,
 	"three": 3,
@@ -69,7 +69,7 @@ func isDigit(line string, idx int) (bool, string) {
 	if _, err := strconv.Atoi(string(line[idx])); err == nil {
 		return true, string(line[idx])
 	}
-	for word, digit := range numWords {
+	for word, digit := range digitWords {
 		if strings.HasPrefix(line[idx:], word) {
 			return true, strconv.Itoa(digit)
 		}
