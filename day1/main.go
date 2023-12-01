@@ -22,7 +22,7 @@ func part1() {
 
 	var total = 0
 
-	for i := 0; reader.Scan(); i++ {
+	for reader.Scan() {
 		line := reader.Text()
 		var numString string
 
@@ -89,7 +89,7 @@ func part2() {
 
 	var total = 0
 
-	for i := 0; reader.Scan(); i++ {
+	for reader.Scan() {
 		line := reader.Text()
 		var numString string
 
