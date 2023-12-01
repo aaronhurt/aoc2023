@@ -5,7 +5,6 @@ import (
 	"log"
 	"maps"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -56,30 +55,22 @@ func part1() {
 	var total = 0
 
 	for _, line := range readLines() {
-		var numString string
 		var length = len(line)
 
-		// get first digit from the start
+		// get first digit from the start (10s place)
 		for i := 0; i < length; i++ {
 			if ok, digit := isDigit(line, i, digitMap); ok {
-				numString += strconv.Itoa(digit)
+				total += digit * 10
 				break
 			}
 		}
 
-		// get first digit from the end
+		// get first digit from the end (ones place)
 		for i := length - 1; i >= 0; i-- {
 			if ok, digit := isDigit(line, i, digitMap); ok {
-				numString += strconv.Itoa(digit)
+				total += digit
 				break
 			}
-		}
-
-		// check the concatenated string and sum total
-		if num, err := strconv.Atoi(numString); err == nil {
-			total += num
-		} else {
-			log.Fatal(err)
 		}
 	}
 
@@ -92,30 +83,22 @@ func part2() {
 	maps.Copy(fullMap, wordMap)
 
 	for _, line := range readLines() {
-		var numString string
 		var length = len(line)
 
-		// get first digit from the start
+		// get first digit from the start (10s place)
 		for i := 0; i < length; i++ {
 			if ok, digit := isDigit(line, i, fullMap); ok {
-				numString += strconv.Itoa(digit)
+				total += digit * 10
 				break
 			}
 		}
 
-		// get first digit from the end
+		// get first digit from the end (ones place)
 		for i := length - 1; i >= 0; i-- {
 			if ok, digit := isDigit(line, i, fullMap); ok {
-				numString += strconv.Itoa(digit)
+				total += digit
 				break
 			}
-		}
-
-		// check the concatenated string and sum total
-		if num, err := strconv.Atoi(numString); err == nil {
-			total += num
-		} else {
-			log.Fatal(err)
 		}
 	}
 
