@@ -8,15 +8,7 @@ import (
 	"strconv"
 )
 
-func reverse(s string) string {
-	runes := []rune(s)
-	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-		runes[i], runes[j] = runes[j], runes[i]
-	}
-	return string(runes)
-}
-
-func main() {
+func part1() {
 	file, err := os.Open("./input.txt")
 
 	if err != nil {
@@ -31,22 +23,24 @@ func main() {
 
 	for i := 0; reader.Scan(); i++ {
 		line := reader.Text()
-		numString := ""
+		var numString string
 
-		// get first digit
-		for _, char := range line {
-			if _, err := strconv.Atoi(string(char)); err == nil {
-				numString += string(char)
+		// get first digit from the start
+		for i := 0; i < len(line); i++ {
+			if _, err := strconv.Atoi(string(line[i])); err == nil {
+				numString += string(line[i])
 				break
 			}
 		}
-		// get last digit
-		for _, char := range reverse(line) {
-			if _, err := strconv.Atoi(string(char)); err == nil {
-				numString += string(char)
+
+		// get first digit from the end
+		for i := len(line) - 1; i >= 0; i-- {
+			if _, err := strconv.Atoi(string(line[i])); err == nil {
+				numString += string(line[i])
 				break
 			}
 		}
+
 		// check the string and sum total
 		if num, err := strconv.Atoi(numString); err == nil {
 			total += num
@@ -54,5 +48,14 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	fmt.Printf("Total: %d\n", total)
+
+	fmt.Printf("P1 Total: %d\n", total)
+}
+
+func part2() {
+
+}
+func main() {
+	part1()
+	part2()
 }
