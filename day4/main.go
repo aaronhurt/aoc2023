@@ -17,7 +17,7 @@ type scratchCard struct {
 
 var myCards []scratchCard
 
-func parseCards() {
+func readCards() {
 	var data []byte
 	var err error
 	var card *scratchCard
@@ -106,7 +106,7 @@ func part2() {
 }
 
 func main() {
-	parseCards()
+	readCards()
 	part1()
 	part2()
 }
