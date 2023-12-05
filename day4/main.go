@@ -12,18 +12,14 @@ type scratchCard struct {
 	id          int
 	winningNums []int
 	myNums      []int
-	points      int
-}
-type scratchCards struct {
-	cards []scratchCard
-	total int
 }
 
-func parseCards() scratchCards {
+var myCards []scratchCard
+
+func parseCards() {
 	var data []byte
 	var err error
 	var card *scratchCard
-	var cards scratchCards
 
 	if data, err = os.ReadFile("./input.txt"); err != nil {
 		panic(err)
@@ -54,7 +50,7 @@ func parseCards() scratchCards {
 			}
 			card.winningNums = append(card.winningNums, num)
 		}
-		// get my numbers and calculate points
+		// get my numbers
 		for _, numStr := range strings.Split(strings.TrimSpace(temps[1]), " ") {
 			if numStr == "" {
 				continue
@@ -63,25 +59,27 @@ func parseCards() scratchCards {
 				panic(err)
 			}
 			card.myNums = append(card.myNums, num)
-			if slices.Contains(card.winningNums, num) {
-				if card.points == 0 {
-					card.points = 1
-				} else {
-					card.points *= 2
-				}
-			}
 		}
-
-		// add card and total points
-		cards.cards = append(cards.cards, *card)
-		cards.total += card.points
+		myCards = append(myCards, *card)
 	}
-	return cards
 }
 
 func part1() {
-	cards := parseCards()
-	fmt.Printf("P1 Total: %d\n", cards.total)
+	var total = 0
+	for _, card := range myCards {
+		var points = 0
+		for _, num := range card.winningNums {
+			if slices.Contains(card.myNums, num) {
+				if points == 0 {
+					points = 1
+				} else {
+					points *= 2
+				}
+			}
+		}
+		total += points
+	}
+	fmt.Printf("P1 Total: %d\n", total)
 }
 
 func part2() {
@@ -89,6 +87,7 @@ func part2() {
 }
 
 func main() {
+	parseCards()
 	part1()
 	part2()
 }
