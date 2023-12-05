@@ -31,6 +31,8 @@ var wordMap = map[string]int{
 	"nine":  9,
 }
 
+var inputLines []string
+
 func isDigit(line string, idx int, m map[string]int) (bool, int) {
 	for str, digit := range m {
 		if strings.HasPrefix(line[idx:], str) {
@@ -40,7 +42,7 @@ func isDigit(line string, idx int, m map[string]int) (bool, int) {
 	return false, 0
 }
 
-func readLines() []string {
+func readLines() {
 	var data []byte
 	var err error
 
@@ -48,13 +50,13 @@ func readLines() []string {
 		log.Fatal(err)
 	}
 
-	return strings.Split(string(data), "\n")
+	inputLines = strings.Split(string(data), "\n")
 }
 
 func part1() {
 	var total = 0
 
-	for _, line := range readLines() {
+	for _, line := range inputLines {
 		var length = len(line)
 
 		// get first digit from the left (10s place)
@@ -82,7 +84,7 @@ func part2() {
 	var fullMap = maps.Clone(digitMap)
 	maps.Copy(fullMap, wordMap)
 
-	for _, line := range readLines() {
+	for _, line := range inputLines {
 		var length = len(line)
 
 		// get first digit from the left (10s place)
@@ -106,6 +108,7 @@ func part2() {
 }
 
 func main() {
+	readLines()
 	part1()
 	part2()
 }

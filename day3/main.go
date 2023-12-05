@@ -20,11 +20,6 @@ const (
 
 type schematic [maxRow][maxCol]string
 
-func init() {
-	symbolRegex = regexp.MustCompile("[^0-9.]")
-	readSchematic()
-}
-
 func readSchematic() {
 	var data []byte
 	var err error
@@ -173,6 +168,8 @@ func part2() {
 }
 
 func main() {
+	symbolRegex = regexp.MustCompile("[^0-9.]")
+	readSchematic()
 	part1()
 	part2()
 }

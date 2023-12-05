@@ -24,10 +24,11 @@ type gameData struct {
 	draws []drawData
 }
 
-func readGameData() []gameData {
+var myGameData []gameData
+
+func readGameData() {
 	var data []byte
 	var err error
-	var games []gameData
 
 	if data, err = os.ReadFile("./input.txt"); err != nil {
 		log.Fatal(err)
@@ -81,14 +82,13 @@ func readGameData() []gameData {
 			}
 			game.draws = append(game.draws, *draw)
 		}
-		games = append(games, *game)
+		myGameData = append(myGameData, *game)
 	}
-	return games
 }
 
 func part1() {
 	var total = 0
-	for _, game := range readGameData() {
+	for _, game := range myGameData {
 		valid := true
 		for _, draw := range game.draws {
 			if draw.red > p1RedMax || draw.green > p1GreenMax || draw.blue > p1BlueMax {
@@ -104,7 +104,7 @@ func part1() {
 }
 func part2() {
 	var total = 0
-	for _, game := range readGameData() {
+	for _, game := range myGameData {
 		var (
 			maxRed   = 0
 			maxGreen = 0
@@ -126,6 +126,7 @@ func part2() {
 	fmt.Printf("P2 Total: %d\n", total)
 }
 func main() {
+	readGameData()
 	part1()
 	part2()
 }
