@@ -12,6 +12,7 @@ type scratchCard struct {
 	id          int
 	winningNums []int
 	myNums      []int
+	copies      int
 }
 
 var myCards []scratchCard
@@ -31,10 +32,11 @@ func parseCards() {
 		}
 		card = new(scratchCard)
 
-		// get card number
+		// get card number and set initial count
 		if _, err = fmt.Sscanf(line, "Card\t%d:", &card.id); err != nil {
 			panic(err)
 		}
+		card.copies = 1
 
 		// split numbers
 		temps := strings.Split(line[strings.Index(line, ":")+1:], "|")
@@ -83,7 +85,24 @@ func part1() {
 }
 
 func part2() {
-
+	var total = 0
+	for _, card := range myCards {
+		total++
+		for c := 0; c < card.copies; c++ {
+			var matches = 0
+			for _, num := range card.winningNums {
+				if slices.Contains(card.myNums, num) {
+					matches++
+				}
+			}
+			// update copies
+			for i := 0; i < matches; i++ {
+				myCards[card.id+i].copies++
+				total++
+			}
+		}
+	}
+	fmt.Printf("P1 Total: %d\n", total)
 }
 
 func main() {
