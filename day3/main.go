@@ -144,9 +144,9 @@ func part1() {
 	for ri, row := range schema {
 		for ci, str := range row {
 			if symbolRegex.MatchString(str) {
-				fmt.Printf("Checking around symbol: %s (%d:%d)\n", str, ri, ci)
+				//fmt.Printf("Checking around symbol: %s (%d:%d)\n", str, ri, ci)
 				for _, pn := range findPartNumbers(ri, ci) {
-					fmt.Printf("Adding PN: %d\n", pn)
+					//fmt.Printf("Adding PN: %d\n", pn)
 					total += pn
 				}
 			}
@@ -156,6 +156,20 @@ func part1() {
 }
 
 func part2() {
+	var total = 0
+	for ri, row := range schema {
+		for ci, str := range row {
+			if str == "*" {
+				gears := findPartNumbers(ri, ci)
+				// they're only gears if we have two
+				if len(gears) == 2 {
+					// compute ratio and add to total
+					total += gears[0] * gears[1]
+				}
+			}
+		}
+	}
+	fmt.Printf("P1 Total: %d\n", total)
 }
 
 func main() {
